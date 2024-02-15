@@ -29,17 +29,22 @@ async function main() {
         userId: '',
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
-        avatar: '',
+        avatar: r.avatar ?? undefined,
         _id: r._id.toString(),
         persona: r.persona,
-        greeting: '',
-        scenario: '',
-        sampleChat: ''
+        greeting: r.greeting,
+        scenario: r.scenario,
+        sampleChat: r.sampleChat
     }
 
     // got to cast R to character
     const conv = exportCharacter(char, 'tavern')
-    console.log(conv)
+    const filetype = r.avatar ? 'png': 'json'
+    console.log(conv.name, r.avatar ?? 'no avatar', filetype)
+
+    // decide whether to use JSON OR png
+    // based on?
+
   })
 
   // now do things with the character data
