@@ -75,6 +75,7 @@ export const CreateCharacterForm: Component<{
 
   const paneOrPopup = usePane()
   const cancel = () => {
+    // TODO: how do we make this act like a page, not a popup?
     if (isPage) {
       nav('/character/list')
     } else {
@@ -225,6 +226,13 @@ export const CreateCharacterForm: Component<{
     setImage(data)
   }
 
+  const onCopyToAuthorNotes = async(ev: Event) =>{
+    const newDesc = (editor.state.scenario || editor.state.greeting).slice(0, 100)
+    editor.update('description', newDesc || 'none')
+    await onSubmit(ev)
+    await cancel()
+  }
+
   const onSubmit = async (ev: Event) => {
     const payload = editor.payload()
     payload.avatar = editor.state.avatar
@@ -256,6 +264,10 @@ export const CreateCharacterForm: Component<{
 
   const footer = (
     <>
+    <Button onClick={onCopyToAuthorNotes} schema="secondary">
+        <X />
+        Copy Desc
+      </Button>
       <Button onClick={cancel} schema="secondary">
         <X />
         {props.close ? 'Close' : 'Cancel'}

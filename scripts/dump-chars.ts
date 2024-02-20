@@ -57,13 +57,21 @@ async function main() {
       sampleChat: r.sampleChat
     }
 
-    if (char.avatar) {
-      const avatarFile = r.avatar ? path.join(avatarBaseFolder, r.avatar) : '(nofile)'
+    const DEFAULT_AVATAR = "C:\\main\\aigithub\\agnai\\web\\asset\\agnai_bg-circle.png"
+
+    // if (char.avatar) {
+      const avatarFile = char.avatar ? path.join(avatarBaseFolder, char.avatar) : DEFAULT_AVATAR
 
       const outFile = path.join(dumpFolder, `${r._id}.png`)
       console.log(avatarFile, outFile)
 
-      var s = png.readFileSync(avatarFile);
+      let actualPng = DEFAULT_AVATAR
+
+      if (fs.existsSync(avatarFile)) {
+          actualPng = avatarFile
+      }
+
+      var s = png.readFileSync(actualPng);
       // split
       var list = png.splitChunk(s);
       // append
@@ -76,7 +84,7 @@ async function main() {
       // save to file
       fs.writeFileSync(outFile, newpng, 'binary');
         
-    }
+    // }
 
   })
 
