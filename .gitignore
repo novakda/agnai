@@ -23,4 +23,4 @@ settings.json
 /auth
 *.tsbuildinfo
 
-scripts/dump/export
+/scripts/dump/export
