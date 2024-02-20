@@ -24,3 +24,4 @@ settings.json
 *.tsbuildinfo
 
 /scripts/dump/export
+/scripts/dump/normalized
